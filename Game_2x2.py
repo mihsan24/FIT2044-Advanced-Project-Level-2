@@ -2,8 +2,6 @@
 @author: Muhammad Ihsan
 """
 
-import matplotlib.markers as mrk
-import matplotlib.pyplot as plt
 import sympy as sp
 import numpy as np
 import turtle
