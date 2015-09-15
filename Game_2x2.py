@@ -4,9 +4,15 @@
 
 import sympy as sp
 import numpy as np
-import turtle
+import matplotlib.pyplot as plt
 
 def pi0(x, matrix):
+    """
+    This function computes the payoff of player 1 playing action 1
+    :param x: frequency of action 1 players
+    :param matrix: game matrix
+    :return: a real number, the payoff
+    """
     return (matrix[0][0] - matrix[0][1]) * x + matrix[0][1]
 
 def pi1(x, matrix):
@@ -35,37 +41,6 @@ if __name__ == "__main__":
         else:
             stable_list.append(1)
 
-    turtle.home()
-    if stable_list[0] == 0:
-        turtle.dot(20, "black")
-        turtle.dot(10, "white")
-        turtle.shape("arrow")
-        turtle.backward(roots_list[1] * 100)
-        turtle.stamp()
-        turtle.setpos(-100, 0)
-        turtle.shape("arrow")
-        turtle.forward((1 - roots_list[1] * 100))
-        turtle.stamp()
-    else:
-        turtle.dot(20, "black")
-        turtle.backward(roots_list[1] * 100)
-        turtle.dot(20, "black")
-        turtle.dot(10, "white")
-        turtle.shape("arrow")
-        turtle.forward(roots_list[1] * 100)
-        turtle.stamp()
-        turtle.backward(100)
-        turtle.dot(20, "black")
-        turtle.setpos(roots_list[1] * 100, 0)
-        turtle.shape("arrow")
-        turtle.backward((1 - roots_list[1]) * 100)
-        turtle.stamp()
-
-    turtle.getscreen()._root.mainloop()
-
-
-
-    """
     t = np.linspace(0, 1, num=Num, endpoint=True)
     dx_dt = deltax_deltat(t, input_matrix)
     d2x_dt2 = np.gradient(dx_dt)
@@ -77,4 +52,32 @@ if __name__ == "__main__":
     plt.ylabel("Change of populations playing strategy 1")
     plt.title("Change of populations playing strategy 1")
     plt.show()
-    """
+
+
+    # turtle.home()
+    # if stable_list[0] == 0:
+    #     turtle.dot(20, "black")
+    #     turtle.dot(10, "white")
+    #     turtle.shape("arrow")
+    #     turtle.backward(roots_list[1] * 100)
+    #     turtle.stamp()
+    #     turtle.setpos(-100, 0)
+    #     turtle.shape("arrow")
+    #     turtle.forward((1 - roots_list[1] * 100))
+    #     turtle.stamp()
+    # else:
+    #     turtle.dot(20, "black")
+    #     turtle.backward(roots_list[1] * 100)
+    #     turtle.dot(20, "black")
+    #     turtle.dot(10, "white")
+    #     turtle.shape("arrow")
+    #     turtle.forward(roots_list[1] * 100)
+    #     turtle.stamp()
+    #     turtle.backward(100)
+    #     turtle.dot(20, "black")
+    #     turtle.setpos(roots_list[1] * 100, 0)
+    #     turtle.shape("arrow")
+    #     turtle.backward((1 - roots_list[1]) * 100)
+    #     turtle.stamp()
+    #
+    # turtle.getscreen()._root.mainloop()
