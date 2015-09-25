@@ -140,5 +140,5 @@ if __name__ == "__main__":
     # Label of y-axis.
     plt.ylabel("Rate of change of populations playing strategy 1")
     # Title of the graph.
-    plt.title("Change of populations playing strategy 1")
+    plt.title("Phase plot for replicator dynamics. Game {} ".format(input_matrix))
     plt.show()
