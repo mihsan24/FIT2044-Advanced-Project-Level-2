@@ -32,11 +32,7 @@ def deltaz_deltat(x, y, matrix):
 
 
 
-if __name__ == "__main__":
-    """
-    input_matrix = [[0, 6, -4], [-3, 0, 5], [-1, 3, 0]]
-    Num = 100
-
+def find_rest_points(input_matrix):
     s = sp.symbols('s')
     t = sp.symbols('t')
     x = deltax_deltat(s, t, input_matrix)
@@ -53,49 +49,66 @@ if __name__ == "__main__":
                 valid_coordinate = False
                 break
             else:
-                tmp.append(j)
+                tmp.append(float(j))
         if valid_coordinate:
             tmp.append(1 - (tmp[0] + tmp[1]))
             equilibrium_points.append(tmp)
+    return equilibrium_points
 
-    dx_ds = sp.diff(x, s)
-    dy_ds = sp.diff(y, s)
-    dx_dt = sp.diff(x, t)
-    dy_dt = sp.diff(y, t)
-    d2x_ds2 = sp.Lambda([s, t], sp.diff(dx_ds, s))
-    d2x_dsdt = sp.Lambda([s, t], sp.diff(dx_dt, s))
-    d2x_dtds = sp.Lambda([s, t], sp.diff(dx_ds, t))
-    d2x_dt2 = sp.Lambda([s, t], sp.diff(dx_dt, t))
+def is_stable(point, input_matrix):
+    # TODO: Add here method based on notebook
+    return True
 
-    for i in equilibrium_points:
-        a = i[0]
-        b = i[1]
-        hessian_x = np.matrix([d2x_ds2(a, b), d2x_dsdt(a, b)], [d2x_dtds(a, b), d2x_dt2(a, b)])
-        hessian_x_eig = np.linalg.eig(hessian_x)
-        print(hessian_x_eig)
 
-    stable_list = []
-    for i in equilibrium_points:
-        if jacobian_det(i[0], i[1]) > 0:
-            stable_list.append(0)
-        elif jacobian_det(i[0], i[1]) < 0:
-            stable_list.append(1)
-    """
+
+
+if __name__ == "__main__":
+
     Num = 100
 
-    fig = plt.figure()
-    ax = fig.gca(projection='3d')
-    plt.hold(True)
+    input_matrix = [[0, 6, -4], [-3, 0, 5], [-1, 3, 0]]
+    for point in find_rest_points(input_matrix):
+        print("Rest point: {}".format(point))
 
-    s = np.linspace(0, 1, num=Num)
-    t = np.linspace(0, 1, num=Num)
-    u = []
-    for i in range(Num):
-        u.append(1 - (s[i] + t[i]))
-    Axes3D.plot_surface(s, t, u)
 
-    ax.set_xlabel('s')
-    ax.set_ylabel('t')
-    ax.set_zlabel('u')
+    # dx_ds = sp.diff(x, s)
+    # dy_ds = sp.diff(y, s)
+    # dx_dt = sp.diff(x, t)
+    # dy_dt = sp.diff(y, t)
+    # d2x_ds2 = sp.Lambda([s, t], sp.diff(dx_ds, s))
+    # d2x_dsdt = sp.Lambda([s, t], sp.diff(dx_dt, s))
+    # d2x_dtds = sp.Lambda([s, t], sp.diff(dx_ds, t))
+    # d2x_dt2 = sp.Lambda([s, t], sp.diff(dx_dt, t))
+    #
+    # for i in equilibrium_points:
+    #     a = i[0]
+    #     b = i[1]
+    #     hessian_x = np.matrix([d2x_ds2(a, b), d2x_dsdt(a, b)], [d2x_dtds(a, b), d2x_dt2(a, b)])
+    #     hessian_x_eig = np.linalg.eig(hessian_x)
+    #     print(hessian_x_eig)
+    #
+    # stable_list = []
+    # for i in equilibrium_points:
+    #     if jacobian_det(i[0], i[1]) > 0:
+    #         stable_list.append(0)
+    #     elif jacobian_det(i[0], i[1]) < 0:
+    #         stable_list.append(1)
 
-    Axes3D.imshow()
+    # Num = 100
+    #
+    # fig = plt.figure()
+    # ax = fig.gca(projection='3d')
+    # plt.hold(True)
+    #
+    # s = np.linspace(0, 1, num=Num)
+    # t = np.linspace(0, 1, num=Num)
+    # u = []
+    # for i in range(Num):
+    #     u.append(1 - (s[i] + t[i]))
+    # Axes3D.plot_surface(s, t, u)
+    #
+    # ax.set_xlabel('s')
+    # ax.set_ylabel('t')
+    # ax.set_zlabel('u')
+    #
+    # Axes3D.imshow()
