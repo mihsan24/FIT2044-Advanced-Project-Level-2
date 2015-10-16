@@ -7,6 +7,7 @@ from mpl_toolkits.mplot3d import *
 import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
+import scipy as sci
 
 
 def pi0(x, y, matrix):
@@ -42,14 +43,16 @@ def find_rest_points(input_matrix):
         tmp = []
         valid_coordinate = True
         for j in i:
-            if j < 0:
+            if j < 0 or j > 1:
                 valid_coordinate = False
                 break
             else:
-                tmp.append(float(j))
+                tmp.append(j)
         if valid_coordinate:
-            tmp.append(float(1 - (tmp[0] + tmp[1])))
-            equilibrium_points.append(tmp)
+            sum = tmp[0] + tmp[1]
+            if 0 <= sum and sum <= 1:
+                tmp.append(1 - (tmp[0] + tmp[1]))
+                equilibrium_points.append(tmp)
 
     return equilibrium_points
 
@@ -68,10 +71,16 @@ def equilibrium_stability_check(equilibrium_points, input_matrix):
     for i in equilibrium_points:
         s = i[0]
         t = i[1]
-        Jacobian_matrix = np.matrix([[dx_ds(s, t), dx_dt(s, t)], [dy_ds(s, t), dy_dt(s, t)]])
-        Jacobian_eig = np.linalg.eig(Jacobian_matrix)
+        J00 = float(dx_ds(s, t))
+        J01 = float(dx_dt(s, t))
+        J10 = float(dy_ds(s, t))
+        J11 = float(dy_dt(s, t))
+        Jacobian_matrix = np.matrix([[J00, J01], [J10, J11]])
+        print(Jacobian_matrix)
+        Jacobian_eigvals, Jacobian_eigvecs = np.linalg.eig(Jacobian_matrix)
+        Jacobian_real_eig = np.real(Jacobian_eigvals)
         stable = True
-        for j in np.real(Jacobian_eig):
+        for j in Jacobian_real_eig:
             if j > 0:
                 stable = False
                 break
@@ -85,10 +94,13 @@ if __name__ == "__main__":
 
     equilibrium_points = find_rest_points(input_matrix)
     stable_list = equilibrium_stability_check(equilibrium_points, input_matrix)
+    print(equilibrium_points)
+    print(stable_list)
 
+    """
     s = np.linspace(0, 1, num=Num)
     t = np.linspace(0, 1, num=Num)
     u = []
     for i in range(Num):
         u.append(1 - (s[i] + t[i]))
-
+    """
