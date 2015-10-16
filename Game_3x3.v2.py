@@ -8,6 +8,8 @@ import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
 import scipy as sci
+import ternary
+import random
 
 
 def pi0(x, y, matrix):
@@ -88,19 +90,34 @@ def equilibrium_stability_check(equilibrium_points, input_matrix):
 
     return stable_list
 
-if __name__ == "__main__":
-    input_matrix = [[0, 6, -4], [-3, 0, 5], [-1, 3, 0]]
-    Num = 100
 
+def main():
+    input_matrix = [[0, 6, -4], [-3, 0, 5], [-1, 3, 0]]
     equilibrium_points = find_rest_points(input_matrix)
     stable_list = equilibrium_stability_check(equilibrium_points, input_matrix)
     print(equilibrium_points)
     print(stable_list)
+    plot_graph(equilibrium_points)
 
-    """
-    s = np.linspace(0, 1, num=Num)
-    t = np.linspace(0, 1, num=Num)
-    u = []
-    for i in range(Num):
-        u.append(1 - (s[i] + t[i]))
-    """
+
+
+
+def plot_graph(points):
+    ### Scatter Plot
+    scale = 1
+    figure, tax = ternary.figure(scale=scale)
+    tax.set_title("Scatter Plot", fontsize=20)
+    tax.boundary(color="black", linewidth=0.5)
+    #tax.gridlines(multiple=5, color="blue")
+    # Plot a few different styles with a legend
+    tax.scatter(points, marker='s', color='red', label="Red Squares")
+    #points = random_points(30, scale=scale)
+    #tax.scatter(points, marker='D', color='green', label="Green Diamonds")
+    tax.legend()
+    tax.ticks(axis='lbr', color="black", linewidth=1, multiple=0.1)
+
+    tax.show()
+
+
+if __name__ == "__main__":
+    main()
